@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.add-entry-form {
+	margin-top: 5%;
+	display: flex;
+	margin-bottom: -75px;
+}
+
+.timesheet-table {
+	margin-top: 5%;
+}
+
+.reports {
+	margin-top: 5%;
+	margin-left: 40%;
+}
+
+.entries {
+	margin-left: 14%;
+}
+
+.col-md-2 {
+	margin-left: 10px;
+}
+
+select{
+	margin: 95px;
+    margin-left: -70px;
+	padding-right: 40px;
+	border-radius: 10px;
+
+}
+
+input{
+	margin: 20px;
+	margin: 95px;
+	margin-left: -60px;
+	border-radius: 10px;
+}
+
+.btn{
+	background-color:rebeccapurple;
+	color: white;
+	margin-left: -90px;
+    margin-top: 90px;
+}
+
+table{
+	width: 500px;
+	margin-bottom: 50px;
+	margin-left: -30px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+	padding: 8px;
+}
+th{
+	background: green;
+	color:white;
+}
+
+.row{
+	width: 100%;
+}
