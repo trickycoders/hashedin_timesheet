@@ -7,18 +7,18 @@ export const ACTIVITY_TYPES = ["Dev", "Meeting", "E-mail", "Testing", "Debug", "
 
 class Timesheet extends Component {
 
-	constructor(props) {
-		super(props)
-		this.state = {
-			projectcodes : "",
-			activitytype : "",
-			hour:""
-		}
-	} 
-	
-	handleAddButtonclick = () => {
-		console.log("This is called from Timesheet Component")
-	}
+    constructor(props) {
+        super(props)
+        this.state = {
+            projectcodes: "",
+            activitytype: "",
+            hour: ""
+        }
+    }
+
+    handleAddButtonclick = () => {
+        console.log("This is called from Timesheet Component")
+    }
   
   render() {
     return (
@@ -38,18 +38,24 @@ class Timesheet extends Component {
 }
 
 class AddEntryForm extends Component {
-	static propTypes = {
-    onAddButtonClick: React.PropTypes.func,
-  }
-		handleChange = (event) => {
-		this.setState({projectcodes: event.target.value});
-		}
-		handleOnChange = (event) =>{
-		this.setState({activitytype: event.target.value});
-		}
-		handleOnChange = (event) =>{
-		this.setState({hour: event.target.value});
-		}
+    static propTypes = {
+        onAddButtonClick: React.PropTypes.func,
+    }
+    handleChange = (event) => {
+        this.setState({
+            projectcodes: event.target.value
+        });
+    }
+    handleOnChange = (event) => {
+        this.setState({
+            activitytype: event.target.value
+        });
+    }
+    handleOnChange = (event) => {
+        this.setState({
+            hour: event.target.value
+        });
+    }
 
 	render() {
 		const { onAddButtonClick } = this.props
@@ -58,16 +64,17 @@ class AddEntryForm extends Component {
 			<div>
 			<select value={this.props.projectcodes} onChange={this.handleChange}>
 				{
-					PROJECT_CODES.map(projectcodes => <option value={projectcodes}>{projectcodes}</option>)
+					PROJECT_CODES.map(projectcodes => 
+					<option value={projectcodes}>{projectcodes}</option>)
 				}
 			</select>
 
 			<select value={this.props.activitytype} onChange={this.handleOnChange}>
 				{
-					PROJECT_CODES.map( activitytype=> <option value={activitytype}>{activitytype}</option>)
+					PROJECT_CODES.map( activitytype=> 
+					<option value={activitytype}>{activitytype}</option>)
 				}
 			</select>
-			
 				<input type="text" value={this.props.hour} onChange={this.handleOnChange}/>
 			</div>
 
@@ -102,53 +109,52 @@ class Entries extends Component {
 
 class Reports extends Component {
 	render() {
-		const  chartData = [{
-                name: 'Hiway',
-                y: 5
-            }, {
-                name: 'Idera',
-                y: 6
-            }, {
-                name: 'Next-IT',
-                y: 2
-            }]
-    let temp = {};
+	  const chartData = [{
+	   name: 'Hiway',
+	   y: 5
+	  }, {
+	   name: 'Idera',
+	   y: 6
+	  }, {
+	   name: 'Next-IT',
+	   y: 2
+	  }]
+	  let temp = {};
     
-    chartData.map((data, index) => {
-      if(!temp[data.name]) {
-    		temp[data.name] = data
-      }
-      else {
-    		temp[data.name].y += data.y
-      }
-      return null
-    })
-        
-    let processedChartData = [];
-    for (let prop in temp) {
-    	if(!temp.hasOwnProperty(prop)) {
-    		continue;
-    	}
-      processedChartData.push(temp[prop])
-    }
-
-		const chartConfig = {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie',
-            width: 350,
-        },
-        title: {
-            text: 'Activity Tracker'
-        },
-        series: [{
-            name: 'Activity Tracker',
-            colorByPoint: true,
-            data: processedChartData
-        }]
+	  chartData.map((data, index) => {
+		if (!temp[data.name]) {
+		 temp[data.name] = data
+		} else {
+		 temp[data.name].y += data.y
 		}
+		return null
+	   })
+	   
+	   let processedChartData = [];
+	   for (let prop in temp) {
+		if (!temp.hasOwnProperty(prop)) {
+		 continue;
+		}
+		processedChartData.push(temp[prop])
+	   }
+	   
+	   const chartConfig = {
+		chart: {
+		 plotBackgroundColor: null,
+		 plotBorderWidth: null,
+		 plotShadow: false,
+		 type: 'pie',
+		 width: 350,
+		},
+		title: {
+		 text: 'Activity Tracker'
+		},
+		series: [{
+		 name: 'Activity Tracker',
+		 colorByPoint: true,
+		 data: processedChartData
+		}]
+	   }
 		
 		return (
 			<div className="reports col-md-offset-4">
