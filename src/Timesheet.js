@@ -4,7 +4,6 @@ import ReactHighchart from 'react-highcharts'
 
 export const PROJECT_CODES = ["Hiway", "Idera", "Next-IT", "Frrole", "MOM", "TrackMe"]
 export const ACTIVITY_TYPES = ["Dev", "Meeting", "E-mail", "Testing", "Debug", "Learning"]
-/* This is a container which encapsulates AddEntryForm, Entries and Reports components */
 
 class Timesheet extends Component {
 
@@ -22,9 +21,6 @@ class Timesheet extends Component {
 	}
   
   render() {
-  	/* -Use className instead of class attributes
-			 -React custom components begin with a capital letter like <AddEntryForm>
-  	*/
     return (
     	<div className="row">
 	      <div className="col-md-12">
@@ -42,21 +38,18 @@ class Timesheet extends Component {
 }
 
 class AddEntryForm extends Component {
-	
-	//to validate the datatypes of props
 	static propTypes = {
     onAddButtonClick: React.PropTypes.func,
   }
-
-  handleChange = (event) => {
-	this.setState({projectcodes: event.target.value});
-  }
-  handleOnChange = (event) =>{
-	this.setState({activitytype: event.target.value});
-  }
-  handleOnChange = (event) =>{
-	this.setState({hour: event.target.value});
-  }
+		handleChange = (event) => {
+		this.setState({projectcodes: event.target.value});
+		}
+		handleOnChange = (event) =>{
+		this.setState({activitytype: event.target.value});
+		}
+		handleOnChange = (event) =>{
+		this.setState({hour: event.target.value});
+		}
 
 	render() {
 		const { onAddButtonClick } = this.props
@@ -64,29 +57,27 @@ class AddEntryForm extends Component {
 		<div className="add-entry-form col-md-offset-4">
 			<div>
 			<select value={this.props.projectcodes} onChange={this.handleChange}>
-			{
-				PROJECT_CODES.map(projectcodes => <option value={projectcodes}>{projectcodes}</option>)
-			}
+				{
+					PROJECT_CODES.map(projectcodes => <option value={projectcodes}>{projectcodes}</option>)
+				}
 			</select>
 
 			<select value={this.props.activitytype} onChange={this.handleOnChange}>
-			{
-				PROJECT_CODES.map( activitytype=> <option value={activitytype}>{activitytype}</option>)
-			}
+				{
+					PROJECT_CODES.map( activitytype=> <option value={activitytype}>{activitytype}</option>)
+				}
 			</select>
 			
-			<input type="text" value={this.props.hour} onChange={this.handleOnChange}/>
-
+				<input type="text" value={this.props.hour} onChange={this.handleOnChange}/>
 			</div>
 
 			<div className="col-md-2 col-md-offset-2">
 				<input className="btn" type="button" onClick={onAddButtonClick} value="ADD"/>
 			</div>
 		</div>
-			)
+		)
 	}
 }
-
 
 class Entries extends Component {
 	render() {
@@ -103,8 +94,7 @@ class Entries extends Component {
 					<td>Idera</td>
 					<td>Next-IT</td>
 				</tr>
-			</table>
-			
+			</table>		
 		</div>
 		)
 	}
@@ -123,8 +113,6 @@ class Reports extends Component {
                 y: 2
             }]
     let temp = {};
-
-    /* This is a helper function to manipulate chartData. Let it be here as it is */
     
     chartData.map((data, index) => {
       if(!temp[data.name]) {
@@ -144,8 +132,6 @@ class Reports extends Component {
       processedChartData.push(temp[prop])
     }
 
-    
-
 		const chartConfig = {
         chart: {
             plotBackgroundColor: null,
@@ -162,13 +148,13 @@ class Reports extends Component {
             colorByPoint: true,
             data: processedChartData
         }]
-    }
-
+		}
+		
 		return (
-		<div className="reports col-md-offset-4">
-			<ReactHighchart config={chartConfig}/>
-		</div>
-			)
+			<div className="reports col-md-offset-4">
+				<ReactHighchart config={chartConfig}/>
+			</div>
+		)
 	}
 }
 
