@@ -4,19 +4,20 @@ import ReactHighchart from 'react-highcharts'
 
 export const PROJECT_CODES = ["Hiway", "Idera", "Next-IT", "Frrole", "MOM", "TrackMe"]
 export const ACTIVITY_TYPES = ["Dev", "Meeting", "E-mail", "Testing", "Debug", "Learning"]
-
+export const HOUR =[""]
 class Timesheet extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            projectcodes: "",
-            activitytype: "",
-            hour: ""
-        }
+			listItems: []
+		};
     }
 
-    handleAddButtonclick = () => {
-        console.log("This is called from Timesheet Component")
+    handleAddButtonclick = (dataFromChild) => {
+        console.log("This is called from Timesheet Component");
+		var updatedItems = this.state.listItems;
+		updatedItems.push(dataFromChild);
+		this.setState({listItems: updatedItems});
 	}
   
 	render() { 
@@ -26,7 +27,7 @@ class Timesheet extends Component {
 					<AddEntryForm onAddButtonClick={this.handleAddButtonclick}/>
 				</div>
 				<div className="col-md-12">
-					<Entries sampleProp="This is a sample prop"/>
+					<Entries sampleProp="This is a sample prop" items={this.state.listItems}/>
 				</div>
 				<div className="col-md-4 col-md-offset-3">
 					<Reports/>
@@ -89,6 +90,15 @@ class AddEntryForm extends Component {
 
 class Entries extends Component {
 	render() {
+		var itemsArray = this.props.items.map(function(item){
+            return (
+			<tr>
+						<th>{PROJECT_CODES}</th>
+						<th>{ ACTIVITY_TYPES}</th>
+						<th>{HOUR}</th>
+			</tr>);
+        });
+		
 		return (
 			<div className="timesheet-table col-md-offset-4">
 				<table>
@@ -97,11 +107,7 @@ class Entries extends Component {
 						<th>activity</th>
 						<th>hour</th>
 					</tr>
-					<tr>
-						<td>Hiway</td>
-						<td>Idera</td>
-						<td>Next-IT</td>
-					</tr>
+					{itemsArray}
 				</table>		
 			</div>
 		)
