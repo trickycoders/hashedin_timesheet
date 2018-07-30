@@ -86,7 +86,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: indexHtmlPath,
-      favicon: faviconPath,
+//      favicon: faviconPath,
     }),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
     // Note: only CSS is currently hot reloaded

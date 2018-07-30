@@ -14,7 +14,6 @@ class Timesheet extends Component {
     }
 
     handleAddButtonclick = (dataFromChild) => {
-        console.log("This is called from Timesheet Component");
 		var updatedItems = this.state.listItems;
 		updatedItems.push(dataFromChild);
 		this.setState({listItems: updatedItems});
@@ -37,51 +36,68 @@ class Timesheet extends Component {
 	}
 }
 
-class AddEntryForm extends Component {
-    static propTypes = {
-        onAddButtonClick: React.PropTypes.func,
-	}
-	
-    handleChange = (event) => {
+class AddEntryForm extends Component {	
+    constructor(props) {
+        super(props)
+        this.state = {
+			projectcodes: '',
+			activitytype: '',
+			hour: 0,
+		};
+    }
+
+    handleOnChangeProductCodes = (event) => {
+		console.log(event.target.value);
         this.setState({
             projectcodes: event.target.value
         });
 	}
 	
-    handleOnChange = (event) => {
+    handleOnChangeActivity = (event) => {
+		console.log(event.target.value);
         this.setState({
             activitytype: event.target.value
-        });
+		});
 	}
 	
-    handleOnChange = (event) => {
+    handleOnChangeHour = (event) => {
+		console.log(event.target.value);
         this.setState({
             hour: event.target.value
         });
+	}
+	
+	handleBtnHour = (event) => {
+		console.log(this.state);
+		const { onAddButtonClick } = this.props
+		onAddButtonClick(this.state);
+		this.setState({
+			projectcodes: '',
+			activitytype: '',
+			hour: 0,
+		});
     }
 
-	render() {
-		const { onAddButtonClick } = this.props
-	
+	render() {		
 		return (
 			<div className="add-entry-form col-md-offset-4">
 			<div>
-				<select value={this.props.projectcodes} onChange={this.handleChange}>
+				<select value={this.props.projectcodes} onChange={this.handleOnChangeProductCodes}>
 					{
 						PROJECT_CODES.map(projectcodes => 
 						<option value={projectcodes}>{projectcodes}</option>)
 					}
 				</select>
-				<select value={this.props.activitytype} onChange={this.handleOnChange}>
+				<select value={this.props.activitytype} onChange={this.handleOnChangeActivity}>
 					{
-						PROJECT_CODES.map( activitytype=> 
+						ACTIVITY_TYPES.map( activitytype=> 
 						<option value={activitytype}>{activitytype}</option>)
 					}
 				</select>
-				<input type="text" value={this.props.hour} onChange={this.handleOnChange}/>
+				<input type="text" value={this.props.hour} onChange={this.handleOnChangeHour}/>
 			</div>
 				<div className="col-md-2 col-md-offset-2">
-					<input className="btn" type="button" onClick={onAddButtonClick} value="ADD"/>
+					<input className="btn" type="button" onClick={this.handleBtnHour} value="ADD"/>
 				</div>
 			</div>
 		)
@@ -90,12 +106,12 @@ class AddEntryForm extends Component {
 
 class Entries extends Component {
 	render() {
-		var itemsArray = this.props.items.map(function(item){
+		var itemsArray = this.props.items.map(function(item, index){
             return (
-			<tr>
-						<th>{PROJECT_CODES}</th>
-						<th>{ ACTIVITY_TYPES}</th>
-						<th>{HOUR}</th>
+			<tr key={index}>
+						<th>{item.projectcodes}</th>
+						<th>{item.activitytype}</th>
+						<th>{item.hour}</th>
 			</tr>);
         });
 		
